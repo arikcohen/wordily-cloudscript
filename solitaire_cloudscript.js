@@ -1,6 +1,6 @@
 // update statistics for a Solitaire Game
 handlers.processSolitaireGameResult = function (args, context) {
-	let data = context.TriggeringEventData;
+	let data = context.playStreamEvent;
 	var request = {
 		PlayFabId: currentPlayerId, Statistics:
 			[
