@@ -1,6 +1,6 @@
 // update statistics for a Solitaire Game
 handlers.processSolitaireGameResult = function (args, context) {
-	
+	let data = context.TriggeringEventData;
 	var request = {
 		PlayFabId: currentPlayerId, Statistics:
 			[
@@ -10,15 +10,13 @@ handlers.processSolitaireGameResult = function (args, context) {
 				},
 				{
 					StatisticName: "SolitaireGamesBestScore",
-					Value: 100
+					Value: data.score
 				},
 				{
 					StatisticName: "SolitaireGamesTotalScore",
-					Value: 100
+					Value: data.score
 				}
 			]
 	};
-	server.UpdatePlayerStatistics(request);
-	log.debug(args);
-	log.info(context);
+	server.UpdatePlayerStatistics(request);	
 };
