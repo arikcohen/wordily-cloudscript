@@ -19,4 +19,6 @@ handlers.processSolitaireGameResult = function (args, context) {
 			]
 	};
 	server.UpdatePlayerStatistics(request);
+	log.debug(args);
+	log.info(context);
 };
