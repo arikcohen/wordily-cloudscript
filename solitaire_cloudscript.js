@@ -15,7 +15,11 @@ handlers.processSolitaireGameResult = function (args, context) {
 				{
 					StatisticName: "SolitaireGamesTotalScore",
 					Value: data.score
-				}
+                },                
+                {
+                    StatisticName: "SolitaireGamesBestWordScore",
+                    Value: data.bestWordScore
+                }
 			]
 	};
 	server.UpdatePlayerStatistics(request);	
