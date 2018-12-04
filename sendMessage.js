@@ -87,6 +87,8 @@ handlers.sendFacebookBotMessage = function (args, context ) {
           }
         }
     }`;        
+
+    log.info("body", JSON.parse(messageBody));
     var response =  JSON.parse(http.request(uriSendMessage, "post", messageBody, "application/json"));
 
     if (response.error != null) {
