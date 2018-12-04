@@ -62,7 +62,8 @@ handlers.sendFacebookBotMessage = function (args, context) {
     if (userData.FBIG_PSID == null) {
       return { 
         error: {
-        "message" : `Player ${currentPlayerId} has not been subscribed for bot messages`
+          "message" : `Player ${currentPlayerId} has not been subscribed for bot messages`
+        }
       }
     }
 
