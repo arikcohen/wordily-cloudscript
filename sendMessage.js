@@ -15,8 +15,15 @@ let App = {
 }
 
 handlers.sendFacebookBotMessage = function (args, context ) {
-    // arguments 
-    // messageTitle=null, messageImage=null, messageSubTitle=null, buttonTitle="Play", payload=null, context_id=null, player_id=null
+    // required arguments 
+    // messageTitle, messageImage, 
+    
+    // optional arguements
+    // messageSubTitle=null, buttonTitle="Play"
+
+    // optional arguments coming soon 
+    // payload, context_id, player_id
+    
 
 
     let titleInternalData = App.TitleInternalData;    
@@ -74,8 +81,7 @@ handlers.sendFacebookBotMessage = function (args, context ) {
           }
         }
     }`;        
-
-    log.info("body", JSON.parse(messageBody));
+    
     var response =  JSON.parse(http.request(uriSendMessage, "post", messageBody, "application/json"));
 
     if (response.error != null) {
