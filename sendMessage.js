@@ -20,13 +20,12 @@ handlers.sendFacebookBotMessage = function (args, context ) {
     
     if (accessToken == null)
     {      
+       let errString = "Bot Access Token must be in TitleInternalData with a Key of FBIGBotAccessToken";
        log.error("Bot Access Token must be in TitleInternalData with a Key of FBIGBotAccessToken");
-       return;
+       throw ("Bot Access Token must be in TitleInternalData with a Key of FBIGBotAccessToken");
     }
 
     var uriSendMessage = `https://graph.facebook.com/v2.6/me/messages?access_token=${accessToken}`;
-
-
 
     var messageBody = `
     {
@@ -55,10 +54,10 @@ handlers.sendFacebookBotMessage = function (args, context ) {
             }
           }
         }
-    }`;
-    log.info("context", context);    
-    log.info("body", messageBody);
-    var responseString = http.request(uriSendMessage, "post", messageBody, "application/json");
-    log.info("response from Bot", responseString);
+    }`;        
+    var response =  JSON.parse(http.request(uriSendMessage, "post", messageBody, "application/json"));
+
+    log.info("response from Bot", response);
+    return response;
 }
 
