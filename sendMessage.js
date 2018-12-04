@@ -2,7 +2,7 @@ let App = {
   get TitleData() {
       // Please, consider limiting the query by defining certain keys that you need
       return server.GetTitleData({}).Data;
-  },
+  }
 }
 
 handlers.sendFacebookBotMessage = function (args, context ) {
