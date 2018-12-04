@@ -1,6 +1,6 @@
 handlers.processFBIG_Webhook_Game_Message = function (args, context ) {
-    log.info("args", args);
-    log.info("context", context);
+    log.info("tags", context.playerProfile.Tags);
+    
 
     // check to see if current player already has been linked to the bot
     if (context.playerProfile.Tags.contains["BotSubscribed"])
