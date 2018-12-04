@@ -14,21 +14,39 @@ let App = {
 }
 }
 
+
+/////////////////////////////////////////////////////////////////////////////////////
+//  The sendFacebookBotMessage will send a generic template message to the player via 
+//  the Facebook Graph API to send a message to the player.
+//  
+//  For more details on the generic template see: 
+//  https://developers.facebook.com/docs/messenger-platform/send-messages/template/generic/
+// 
+//  You must configure the FBIGBotAccessToken key in TitleInternalData to have the page 
+//  access token for your messenger bot.
+//
+//  You must have the player's PSID (Page Specific ID) stored in the FBIG_PSID key in
+//  UserInternalData 
+//
+//
+//  There are two ways to send the message specifics:
+//    1.  Include an argument of TitleInternalDataKey that provides a JSON representation 
+//        of the message data format.
+//
+//    2.  Include the following arguments to define the message data format
+//          - title (required): The title to display in the template. 80 character limit.
+//          - subtitle (optional): The subtitle to display in the template. 80 character limit
+//          - image_url (optional): The URL of the image to display in the template
+//          - button_title (optional): The text to display on the Play button (defaults to Play)
+
+
 handlers.sendFacebookBotMessage = function (args, context) {
-    // required arguments 
-    // messageTitle, messageImage, 
     
-    // optional arguements
-    // messageSubTitle=null, buttonTitle="Play"
-
-    // optional arguments coming soon 
-    // payload, context_id, player_id
-    
-
 
     let titleInternalData = App.TitleInternalData;    
     let accessToken = titleInternalData.FBIGBotAccessToken;
-    
+
+    // check to see if the Access Token is present in the Title Internal Data
     if (accessToken == null)
     {                    
        return { 
@@ -38,22 +56,8 @@ handlers.sendFacebookBotMessage = function (args, context) {
        }       
        
     }
-
-    var uriSendMessage = `https://graph.facebook.com/v2.6/me/messages?access_token=${accessToken}`;
-    
-    
-    // check to see if the player has been connected for bot messages
-    //let tagToCheck =`title.${script.titleId}.BotSubscribed`;
-    //log.info("context.playerProfile", context.playerProfile);
-
-    //if (!context.playerProfile.Tags.includes(tagToCheck)) {
-    //  return { 
-    //    error: {
-    //     "message" : `Player ${currentPlayerId} has not been subscribed for bot messages`
-    //   }
-    //  }       
-    //}
-
+  
+    // check to see if the Player has a PSID that can be sent to
     let userData = server.GetUserInternalData({
       PlayFabId: currentPlayerId,      
       Keys: ["FBIG_PSID"]
@@ -81,12 +85,16 @@ handlers.sendFacebookBotMessage = function (args, context) {
               "template_type":"generic",
               "elements":[
                  {
-                  "title":"${args.messageTitle}",            
-                  "image_url":"${args.messageImage}",`      
-
+                  "title":"${args.title}",`
+      
+      if (!isEmpty(args.image_url)) {
+        messageBody += `            
+                  "image_url":"${args.image_url}",`      
+      }
+      
       if (!isEmpty(args.messageSubTitle)) {
         messageBody += `
-                  "subtitle":"${args.messageSubTitle}",`
+                  "subtitle":"${args.subtitle}",`
       }      
       
       messageBody += `
@@ -94,9 +102,9 @@ handlers.sendFacebookBotMessage = function (args, context) {
                     {
                       "type":"game_play"`;
 
-      if (!isEmpty(args.buttonTitle)) {                                            
+      if (!isEmpty(args.button_title)) {                                            
         messageBody += `
-                      ,"title":"${args.buttonTitle}"`;
+                      ,"title":"${args.button_title}"`;
       }
       messageBody += `              
                     }              
@@ -108,6 +116,9 @@ handlers.sendFacebookBotMessage = function (args, context) {
         }
     }`;        
     
+
+    let uriSendMessage = `https://graph.facebook.com/v2.6/me/messages?access_token=${accessToken}`;
+
     var response =  JSON.parse(http.request(uriSendMessage, "post", messageBody, "application/json"));
 
     if (response.error != null) {
