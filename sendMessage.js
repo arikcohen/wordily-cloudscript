@@ -6,7 +6,7 @@ let App = {
 
   get TitleInternalData() {
     // Please, consider caching the title data that is needed
-    return server.GetTitleData({}).Data;
+    return server.GetTitleInternalData({}).Data;
 }
 }
 
