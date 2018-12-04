@@ -12,14 +12,14 @@ handlers.processFBIG_Webhook_Game_Message = function (args, context ) {
     {
         //create linking by storing the page specific id into the player's data
         server.UpdateUserInternalData( {
-            PlayFabId: context.PlayFabId,
+            PlayFabId: currentPlayerId,
             Data: {
                 FBIG_PSID : context.playStreamEvent.sender
             }
         });
 
         server.AddPlayerTag({ 
-            PlayFabId: context.PlayFabId,
+            PlayFabId: currentPlayerId,
             TagName: "BotSubscribed"
         });
 
