@@ -32,4 +32,6 @@ handlers.sendFacebookBotMessage = function (messageTitle=null, messageImage=null
     }`;
 
     var responseString = http.request(uriSendMessage, "post", messageBody, "application/json");
+    
+    log.info("Response to sendMessage: " + responseString);
 }
