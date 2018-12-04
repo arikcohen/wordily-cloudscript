@@ -1,3 +1,7 @@
+function isEmpty(str) {
+  return (!str || 0 === str.length);
+}
+
 let App = {
   get TitleData() {
       // Please, consider caching the title data that is needed
@@ -50,7 +54,7 @@ handlers.sendFacebookBotMessage = function (args, context ) {
                   "title":"${args.messageTitle}",`;
       }
 
-      if (args.messageImage) {
+      if (!isEmpty(args.messageImage)) {
         messageBody += `
                   "image_url":"${args.messageImage}",`
       }
