@@ -61,7 +61,7 @@ handlers.sendFacebookBotMessage = function (args, context ) {
                     {
                       "type":"game_play",`;
 
-      if (!isEmpty(args.buttonTitle) {                                            
+      if (!isEmpty(args.buttonTitle)) {                                            
         messageBody += `
                       "title":"${args.buttonTitle}"`;
       }
