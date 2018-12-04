@@ -1,15 +1,18 @@
 let App = {
   get TitleData() {
-      // Please, consider limiting the query by defining certain keys that you need
+      // Please, consider caching the title data that is needed
       return server.GetTitleData({}).Data;
   }
 }
 
 handlers.sendFacebookBotMessage = function (args, context ) {
-    // arguements 
+    // arguments 
     // messageTitle=null, messageImage=null, messageSubTitle=null, buttonTitle="Play", payload=null, context_id=null, player_id=null
 
-    var accessToken = App.TitleData.FBIGBotAccessToken;    
+
+    let titleData = App.TitleData;    
+    let accessToken = titleData.FBIGBotAccessToken;
+    
     if (accessToken == undefined)
     {
        throw ("Bot Access Token must be in TitleData with a Key of FBIGBotAccessToken");
