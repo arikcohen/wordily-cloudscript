@@ -47,29 +47,15 @@ handlers.sendFacebookBotMessage = function (args, context ) {
             "payload":{
               "template_type":"generic",
               "elements":[
-                 {`;
-
-      if (args.messageTitle) {
-          messageBody += `
-                  "title":"${args.messageTitle}",`;
-      }
-
-      if (!isEmpty(args.messageImage)) {
-        messageBody += `
-                  "image_url":"${args.messageImage}",`
-      }
+                 {
+                  "title":"${args.messageTitle}",            
+                  "image_url":"${args.messageImage}",`      
 
       if (args.messageSubTitle) {
         messageBody += `
                   "subtitle":"${args.messageSubTitle}",`
-      }
-
-      if (args.buttonTitle) {
-        messageBody += `
-                  "image_url":"${args.messageImage}",`
-      }
+      }      
       
-
       messageBody += `
                   "buttons":[
                     {
