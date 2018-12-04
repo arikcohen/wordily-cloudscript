@@ -8,7 +8,7 @@ handlers.sendFacebookBotMessage = function (args, context ) {
     var messageBody = `
     {
         "recipient":{
-          "id":"<PSID>"
+          "id":"1983609171705685"
         },
         "message":{
           "attachment":{
