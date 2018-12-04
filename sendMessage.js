@@ -15,10 +15,10 @@ handlers.sendFacebookBotMessage = function (args, context ) {
     // messageTitle=null, messageImage=null, messageSubTitle=null, buttonTitle="Play", payload=null, context_id=null, player_id=null
 
 
-    let TitleInternalData = App.TitleInternalData;    
-    let accessToken = TitleInternalData.FBIGBotAccessToken;
+    let titleInternalData = App.TitleInternalData;    
+    let accessToken = titleInternalData.FBIGBotAccessToken;
 
-    log.info("title data", titleData);
+    log.info("title internal data", titleInternalData);
     log.info("access token", accessToken);
     if (accessToken == null)
     {      
