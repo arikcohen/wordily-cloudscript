@@ -12,10 +12,14 @@ handlers.sendFacebookBotMessage = function (args, context ) {
 
     let titleData = App.TitleData;    
     let accessToken = titleData.FBIGBotAccessToken;
-    
+
+    log.info("title data", titleData);
+    log.info("access token", accessToken);
     if (accessToken == undefined)
     {
-       throw ("Bot Access Token must be in TitleData with a Key of FBIGBotAccessToken");
+      log.console.error("Bad access token");
+      
+       //throw ("Bot Access Token must be in TitleData with a Key of FBIGBotAccessToken");
     }
 
     var uriSendMessage = `https://graph.facebook.com/v2.6/me/messages?access_token=${accessToken}`;
