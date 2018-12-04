@@ -1,4 +1,28 @@
-handlers.processGamePlay = function (args, context ) {
+handlers.processFBIG_Webhook_Game_Message = function (args, context ) {
     log.info("args", args);
     log.info("context", context);
+
+    // check to see if current player already has been linked to the bot
+    if (context.playerProfile.Tags.contains["BotSubscribed"])
+    {
+        // already linked to bot
+        return;
+    }
+    else
+    {
+        //create linking by storing the page specific id into the player's data
+        server.UpdateUserInternalData( {
+           Data: {
+               FBIG_PSID : context.playStreamEvent.sender
+           }
+        });
+
+        server.AddPlayerTag({ 
+            TagName: "BotSubscribed"
+        });
+
+        log.info ("linked player for bot messages");
+    }
+
+
 }
