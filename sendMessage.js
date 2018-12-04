@@ -2,7 +2,7 @@ let App = {
   get TitleData() {
       // Please, consider caching the title data that is needed
       return server.GetTitleData({}).Data;
-  }
+  },
 
   get TitleInternalData() {
     // Please, consider caching the title data that is needed
@@ -21,10 +21,8 @@ handlers.sendFacebookBotMessage = function (args, context ) {
     log.info("title data", titleData);
     log.info("access token", accessToken);
     if (accessToken == null)
-    {
-      log.console.error("Bad access token");
-      
-       //throw ("Bot Access Token must be in TitleData with a Key of FBIGBotAccessToken");
+    {      
+       throw ("Bot Access Token must be in TitleInternalData with a Key of FBIGBotAccessToken");
     }
 
     var uriSendMessage = `https://graph.facebook.com/v2.6/me/messages?access_token=${accessToken}`;
