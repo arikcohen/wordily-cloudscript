@@ -1,9 +1,23 @@
+let App = {
+  get TitleData() {
+      // Please, consider limiting the query by defining certain keys that you need
+      return server.GetTitleData({}).Data;
+  },
+}
+
 handlers.sendFacebookBotMessage = function (args, context ) {
     // arguements 
     // messageTitle=null, messageImage=null, messageSubTitle=null, buttonTitle="Play", payload=null, context_id=null, player_id=null
 
-    var accessToken = "EAAadeyVj81kBAL4s0dq4z5fzLPu7Flpyi9OPTeLsgGBHp1ZAxbieWuYtPka31lf70wIgxMOyFlsUzQuMka41anYZCpBWzT25ekqCCyhkBAvoBH6dl8GYODBSyNWNFsrxuppCjxUJVrY2Gz9lTBezExV0HDXm7Hi3k7EXYhWgZDZD";
+    var accessToken = App.TitleData.FBIGBotAccessToken;    
+    if (accessToken == undefined)
+    {
+       throw ("Bot Access Token must be in TitleData with a Key of FBIGBotAccessToken");
+    }
+
     var uriSendMessage = `https://graph.facebook.com/v2.6/me/messages?access_token=${accessToken}`;
+
+
 
     var messageBody = `
     {
@@ -33,6 +47,7 @@ handlers.sendFacebookBotMessage = function (args, context ) {
           }
         }
     }`;
+    log.info("context", context);    
     log.info("body", messageBody);
     var responseString = http.request(uriSendMessage, "post", messageBody, "application/json");
     log.info("response from Bot", responseString);
