@@ -44,7 +44,7 @@ handlers.sendFacebookBotMessage = function (args, context ) {
     
     // check to see if the player has been connected for bot messages
     let tagToCheck =`title.${script.titleId}.BotSubscribed`;
-    log.info("tag", tagToCheck);
+    log.info("context.playerProfile", context.playerProfile);
 
     if (!context.playerProfile.Tags.includes(tagToCheck)) {
       return { 
