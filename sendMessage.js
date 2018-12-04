@@ -41,7 +41,19 @@ handlers.sendFacebookBotMessage = function (args, context ) {
 
     var uriSendMessage = `https://graph.facebook.com/v2.6/me/messages?access_token=${accessToken}`;
 
-    let recipientId = "1983609171705685";
+    // check to see if the player has been conencted for bot messages
+    if (!context.playerProfile.Tags.contains('BotSubscribed')) {
+      return { 
+        error: {
+         "message" : `Player ${currentPlayerId} has not been subscribed for bot messages`
+       }
+      }       
+    }
+
+    let recipientId = server.GetUserInternalData({
+      PlayFabId: currentPlayerId,      
+      Keys: ["FBIG_PSID"]
+    }).Data.FBIG_PSID;
 
     var messageBody = `
     {
