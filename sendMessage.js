@@ -113,6 +113,19 @@ handlers.sendFacebookBotMessage = function (args, context) {
     if (response.error != null) {
         log.error ("Send Message Failed", response.error);
     }
+    else {
+      server.UpdatePlayerStatistics({
+        PlayFabId: currentPlayerId, 
+        Statistics: [
+          {
+              StatisticName: "FBIG_MessagesSentSinceLogin",
+              Value:1
+          }
+        ]
+      });
+    }
+
+    
     return response;
 }
 
