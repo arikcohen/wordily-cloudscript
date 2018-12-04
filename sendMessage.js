@@ -50,10 +50,13 @@ handlers.sendFacebookBotMessage = function (args, context ) {
     //  }       
     //}
 
-    let recipientId = server.GetUserInternalData({
+    let userData = server.GetUserInternalData({
       PlayFabId: currentPlayerId,      
       Keys: ["FBIG_PSID"]
-    }).Data.FBIG_PSID;
+    }).Data;
+
+    log.info("userData", userData);
+    let recipientId = userData["FBIG_PSID"];
 
     var messageBody = `
     {
