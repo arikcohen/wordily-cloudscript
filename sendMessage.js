@@ -14,7 +14,7 @@ let App = {
 }
 }
 
-handlers.sendFacebookBotMessage = function (args, context ) {
+handlers.sendFacebookBotMessage = function (args, context) {
     // required arguments 
     // messageTitle, messageImage, 
     
@@ -43,22 +43,29 @@ handlers.sendFacebookBotMessage = function (args, context ) {
     
     
     // check to see if the player has been connected for bot messages
-    let tagToCheck =`title.${script.titleId}.BotSubscribed`;
-    log.info("context.playerProfile", context.playerProfile);
+    //let tagToCheck =`title.${script.titleId}.BotSubscribed`;
+    //log.info("context.playerProfile", context.playerProfile);
 
-    if (!context.playerProfile.Tags.includes(tagToCheck)) {
-      return { 
-        error: {
-         "message" : `Player ${currentPlayerId} has not been subscribed for bot messages`
-       }
-      }       
-    }
+    //if (!context.playerProfile.Tags.includes(tagToCheck)) {
+    //  return { 
+    //    error: {
+    //     "message" : `Player ${currentPlayerId} has not been subscribed for bot messages`
+    //   }
+    //  }       
+    //}
 
     let userData = server.GetUserInternalData({
       PlayFabId: currentPlayerId,      
       Keys: ["FBIG_PSID"]
     }).Data;
     
+    if (userData.FBIG_PSID == null) {
+      return { 
+        error: {
+        "message" : `Player ${currentPlayerId} has not been subscribed for bot messages`
+      }
+    }
+
     let recipientId = userData["FBIG_PSID"].Value;
 
     var messageBody = `
