@@ -42,7 +42,7 @@ handlers.sendFacebookBotMessage = function (args, context ) {
     log.info("context", context);
     var uriSendMessage = `https://graph.facebook.com/v2.6/me/messages?access_token=${accessToken}`;
     // check to see if the player has been conencted for bot messages
-    if (!context.playerProfile.Tags.contains('BotSubscribed')) {
+    if (!context.playerProfile.Tags.includes('BotSubscribed')) {
       return { 
         error: {
          "message" : `Player ${currentPlayerId} has not been subscribed for bot messages`
