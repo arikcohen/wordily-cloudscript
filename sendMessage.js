@@ -3,6 +3,11 @@ let App = {
       // Please, consider caching the title data that is needed
       return server.GetTitleData({}).Data;
   }
+
+  get TitleInternalData() {
+    // Please, consider caching the title data that is needed
+    return server.GetTitleData({}).Data;
+}
 }
 
 handlers.sendFacebookBotMessage = function (args, context ) {
@@ -10,12 +15,12 @@ handlers.sendFacebookBotMessage = function (args, context ) {
     // messageTitle=null, messageImage=null, messageSubTitle=null, buttonTitle="Play", payload=null, context_id=null, player_id=null
 
 
-    let titleData = App.TitleData;    
-    let accessToken = titleData.FBIGBotAccessToken;
+    let TitleInternalData = App.TitleInternalData;    
+    let accessToken = TitleInternalData.FBIGBotAccessToken;
 
     log.info("title data", titleData);
     log.info("access token", accessToken);
-    if (accessToken == undefined)
+    if (accessToken == null)
     {
       log.console.error("Bad access token");
       
