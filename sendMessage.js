@@ -51,7 +51,7 @@ handlers.sendFacebookBotMessage = function (args, context ) {
                   "title":"${args.messageTitle}",            
                   "image_url":"${args.messageImage}",`      
 
-      if (args.messageSubTitle) {
+      if (!isEmpty(args.messageSubTitle)) {
         messageBody += `
                   "subtitle":"${args.messageSubTitle}",`
       }      
@@ -60,7 +60,8 @@ handlers.sendFacebookBotMessage = function (args, context ) {
                   "buttons":[
                     {
                       "type":"game_play",`;
-      if (args.buttonTitle) {                                            
+
+      if (!isEmpty(args.buttonTitle) {                                            
         messageBody += `
                       "title":"${args.buttonTitle}"`;
       }
