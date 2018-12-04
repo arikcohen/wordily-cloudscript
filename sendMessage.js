@@ -30,10 +30,12 @@ handlers.sendFacebookBotMessage = function (args, context ) {
 
     var uriSendMessage = `https://graph.facebook.com/v2.6/me/messages?access_token=${accessToken}`;
 
+    let recipientId = "1983609171705685";
+
     var messageBody = `
     {
         "recipient":{
-          "id":"1983609171705685"
+          "id":"${recipientId}"
         },
         "message":{
           "attachment":{
@@ -41,15 +43,38 @@ handlers.sendFacebookBotMessage = function (args, context ) {
             "payload":{
               "template_type":"generic",
               "elements":[
-                 {
-                  "title":"${args.messageTitle}",
-                  "image_url":"${args.messageImage}",
-                  "subtitle":"${args.messageSubTitle}",
-                  
+                 {`;
+
+      if (args.messageTitle) {
+          messageBody += `
+                  "title":"${args.messageTitle}",`;
+      }
+
+      if (args.messageImage) {
+        messageBody += `
+                  "image_url":"${args.messageImage}",`
+      }
+
+      if (args.messageSubTitle) {
+        messageBody += `
+                  "subtitle":"${args.messageSubTitle}",`
+      }
+
+      if (args.buttonTitle) {
+        messageBody += `
+                  "image_url":"${args.messageImage}",`
+      }
+      
+
+      messageBody += `
                   "buttons":[
                     {
-                      "type":"game_play",                      
-                      "title":"${args.buttonTitle}"
+                      "type":"game_play",`;
+      if (args.buttonTitle) {                                            
+        messageBody += `
+                      "title":"${args.buttonTitle}"`;
+      }
+      messageBody += `              
                     }              
                   ]      
                 }
@@ -60,7 +85,6 @@ handlers.sendFacebookBotMessage = function (args, context ) {
     }`;        
     var response =  JSON.parse(http.request(uriSendMessage, "post", messageBody, "application/json"));
 
-    log.info("response from Bot", response);
     if (response.error != null) {
         log.error ("Send Message Failed", response.error);
     }
