@@ -153,7 +153,7 @@ handlers.resetFBIG_MessagesSentSinceLogin = function (args, context) {
       {
           ForceUpdate: true,
           StatisticName: "FBIG_MessagesSentSinceLogin",
-          Value:0
+          Value:1000
       }
     ]
   });
