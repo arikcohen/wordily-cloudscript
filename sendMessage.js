@@ -149,11 +149,11 @@ handlers.resetFBIG_MessagesSentSinceLogin = function (args, context) {
   
   return server.UpdatePlayerStatistics({
     PlayFabId: currentPlayerId, 
+    ForceUpdate: true,
     Statistics: [
-      {
-          ForceUpdate: true,
+      {          
           StatisticName: "FBIG_MessagesSentSinceLogin",
-          Value:1000
+          Value:0
       }
     ]
   });
