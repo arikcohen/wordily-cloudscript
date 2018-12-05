@@ -16,7 +16,7 @@ let App = {
 
 
 /////////////////////////////////////////////////////////////////////////////////////
-//  The sendFacebookBotMessage will send a generic template message to the player via 
+//  The sendFacebookBotMessage function will send a generic template message to the player via 
 //  the Facebook Graph API to send a message to the player.
 //  
 //  For more details on the generic template see: 
@@ -91,8 +91,8 @@ handlers.sendFacebookBotMessage = function (args, context) {
         messageBody += `            
                   "image_url":"${args.image_url}",`      
       }
-      
-      if (!isEmpty(args.messageSubTitle)) {
+
+      if (!isEmpty(args.subtitle)) {
         messageBody += `
                   "subtitle":"${args.subtitle}",`
       }      
@@ -135,8 +135,26 @@ handlers.sendFacebookBotMessage = function (args, context) {
         ]
       });
     }
-
     
     return response;
 }
 
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+//  The resetFBIG_MessagesSentSinceLogin function will reset the statistic for the Player to 0.
+//  
+
+handlers.resetFBIG_MessagesSentSinceLogin = function (args, context) {
+  
+  return server.UpdatePlayerStatistics({
+    PlayFabId: currentPlayerId, 
+    Statistics: [
+      {
+          ForceUpdate: true,
+          StatisticName: "FBIG_MessagesSentSinceLogin",
+          Value:0
+      }
+    ]
+  });
+}
