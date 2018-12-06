@@ -11,11 +11,7 @@ handlers.processSolitaireGameResult = function (args, context) {
 				{
 					StatisticName: "SolitaireGamesBestScore",
 					Value: data.score
-				},
-				{
-					StatisticName: "DailyBestGameScore",
-					Value: data.score
-				},
+				},				
 				{
 					StatisticName: "SolitaireGamesTotalScore",
 					Value: data.score
@@ -26,5 +22,10 @@ handlers.processSolitaireGameResult = function (args, context) {
                 }
 			]
 	};
+
+	if (data.gameType == "Daily") {
+		request.Statistics.push({ StatisticName: "DailyGameBestScore", Value: data.score});		
+	}
+
 	server.UpdatePlayerStatistics(request);	
 };
