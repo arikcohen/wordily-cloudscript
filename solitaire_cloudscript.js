@@ -13,6 +13,10 @@ handlers.processSolitaireGameResult = function (args, context) {
 					Value: data.score
 				},
 				{
+					StatisticName: "DailyBestGameScore",
+					Value: data.score
+				},
+				{
 					StatisticName: "SolitaireGamesTotalScore",
 					Value: data.score
                 },                
