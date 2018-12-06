@@ -19,7 +19,11 @@ handlers.processSolitaireGameResult = function (args, context) {
                 {
                     StatisticName: "SolitaireGamesBestWordScore",
                     Value: data.bestWordScore
-                }
+				},
+				{
+                    StatisticName: "TournamentBestScore",
+                    Value: data.score
+				},
 			]
 	};
 
